@@ -1,0 +1,81 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.kylestrait.codechallenge"
+        minSdkVersion 19
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dataBinding.enabled = true
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kapt {
+        javacOptions {
+            option("-Xmaxerrs", 500)
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation "com.google.android.material:material:${rootProject.ext.xMaterialVersion}"
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    //Dagger2
+    implementation "com.google.dagger:dagger:${rootProject.ext.daggerVersion}"
+    kapt "com.google.dagger:dagger-compiler:${rootProject.ext.daggerVersion}"
+    implementation "com.google.dagger:dagger-android:${rootProject.ext.daggerVersion}"
+    implementation "com.google.dagger:dagger-android-support:${rootProject.ext.daggerVersion}"
+    kapt "com.google.dagger:dagger-android-processor:${rootProject.ext.daggerVersion}"
+
+    //OkHttp, Retrofit, Moshi, Picasso
+    implementation "com.google.code.gson:gson:${rootProject.ext.gsonVersion}"
+    implementation "com.squareup.okhttp3:okhttp:${rootProject.ext.okHttpVersion}"
+    implementation "com.squareup.okhttp3:okhttp-urlconnection:${rootProject.ext.okHttpVersion}"
+    implementation "com.squareup.okhttp3:logging-interceptor:${rootProject.ext.okHttpVersion}"
+    implementation "com.squareup.moshi:moshi:${rootProject.ext.moshiVersion}"
+    implementation "com.squareup.retrofit2:retrofit:${rootProject.ext.retrofitVersion}"
+    implementation "com.squareup.retrofit2:converter-moshi:${rootProject.ext.retrofitVersion}"
+    implementation "com.squareup.picasso:picasso:${rootProject.ext.picassoVersion}"
+    implementation "com.jakewharton.picasso:picasso2-okhttp3-downloader:${rootProject.ext.downloaderVersion}"
+    implementation "com.squareup.retrofit2:converter-gson:${rootProject.ext.gsonRetroVersion}"
+    implementation "com.squareup.retrofit2:converter-jackson:${rootProject.ext.gsonRetroVersion}"
+
+    // Lifecycle, LiveData and ViewModel
+    implementation "androidx.lifecycle:lifecycle-extensions:${rootProject.ext.xArchLifecycleVersion}"
+    implementation "androidx.lifecycle:lifecycle-common-java8:${rootProject.ext.xArchLifecycleVersion}"
+
+    // Room
+    implementation "androidx.room:room-runtime:${rootProject.ext.xRoomVersion}"
+    kapt "androidx.room:room-compiler:${rootProject.ext.xRoomVersion}"
+    implementation "androidx.room:room-migration:${rootProject.ext.xRoomVersion}"
+
+    // For controlling LiveData background threads in your tests
+    testImplementation "androidx.arch.core:core-testing:${rootProject.ext.xArchLifecycleVersion}"
+    testImplementation "androidx.room:room-testing:${rootProject.ext.xRoomVersion}"
+}

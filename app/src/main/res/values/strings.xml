@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Code Challenge</string>
+    <string name="email">E-Mail *</string>
+    <string name="password">Password *</string>
+    <string name="login">Login</string>
+    <string name="password_reqs">Email address should be in a valid standard email format\n\nPassword must be at least 9 characters long with at least 1 uppercase
+character, 1 lowercase character, and 1 number.</string>
+    <string name="invalid_credentials">Invalid credentials\n\nPlease make sure you\'ve entered your e-mail and password correctly and have met the authentication requirements. To view
+    requirements, click the ? button.</string>
+    <string name="last_updated">Last updated at : %1$s</string>
+    <string name="logout">Logout</string>
+</resources>
