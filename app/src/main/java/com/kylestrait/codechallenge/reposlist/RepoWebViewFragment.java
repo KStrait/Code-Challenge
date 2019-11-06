@@ -21,6 +21,7 @@ public class RepoWebViewFragment extends BaseFragment<ReposViewModel> {
         super(ReposViewModel.class);
     }
 
+    // Passing in arguments when starting the fragment
     public static RepoWebViewFragment newInstance(String name, String url) {
         RepoWebViewFragment frag = new RepoWebViewFragment();
         Bundle args = new Bundle();
@@ -36,6 +37,7 @@ public class RepoWebViewFragment extends BaseFragment<ReposViewModel> {
         binding = FragmentRepoWebviewBinding.inflate(inflater, container, false);
         binding.setLifecycleOwner(this);
 
+        // Getting arguments and using them where needed
         if (getArguments() != null) {
             name = getArguments().getString("name");
             url = getArguments().getString("url");

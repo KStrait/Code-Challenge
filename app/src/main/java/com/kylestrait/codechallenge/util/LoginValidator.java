@@ -5,7 +5,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 // Util to validate email and password. If each match the correct pattern ? true : false
-
 public class LoginValidator {
 
     private Pattern pattern;

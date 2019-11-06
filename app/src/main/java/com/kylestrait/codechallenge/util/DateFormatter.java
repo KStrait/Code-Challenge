@@ -11,7 +11,6 @@ import javax.inject.Singleton;
 
 
 // Util to format a date from each repo and make it look more readable
-
 public class DateFormatter {
 
     private static final SimpleDateFormat INPUT_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US);

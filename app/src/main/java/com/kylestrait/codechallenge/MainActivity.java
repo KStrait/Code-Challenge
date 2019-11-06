@@ -44,6 +44,8 @@ public class MainActivity extends DaggerAppCompatActivity implements MainViewMod
                 viewModel.setMainView(detectView());
         });
 
+
+        // Show the proper fragment that is set in MainViewModel, and detect that it's not already showing to prevent loading multiple times.
         viewModel.getMainView().observe(this, mainView -> {
             Log.d(TAG, "mainView observed: " + mainView);
             Log.d(TAG, "mainView detected: " + detectView());
@@ -66,6 +68,7 @@ public class MainActivity extends DaggerAppCompatActivity implements MainViewMod
             }
         });
 
+        // Detect a goBack() and pop stack
         viewModel.getMainAction().observe(this, mainAction -> {
             Log.d(TAG, "mainAction observed: " + mainAction);
             if (mainAction != null) {
@@ -78,16 +81,6 @@ public class MainActivity extends DaggerAppCompatActivity implements MainViewMod
                 }
             }
         });
-    }
-
-    private void clearBackStack() {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            if (fragmentManager.getBackStackEntryCount() > 0) {
-                clearingBackStack = true;
-                FragmentManager.BackStackEntry entry = fragmentManager.getBackStackEntryAt(0);
-                fragmentManager.popBackStackImmediate(entry.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                clearingBackStack = false;
-            }
     }
 
     // Leaving intial fragment off the stack, for nav purpose
@@ -110,6 +103,7 @@ public class MainActivity extends DaggerAppCompatActivity implements MainViewMod
 
     }
 
+    // Detects which fragment is current showing
     @MainViewModel.MainView
     private int detectView() {
         FragmentManager fragmentManager = getSupportFragmentManager();
