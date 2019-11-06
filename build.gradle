@@ -44,13 +44,10 @@ ext {
     okHttpVersion = '3.10.0'
     moshiVersion = '1.6.0'
     retrofitVersion = '2.4.0'
-    picassoVersion = '2.5.2'
-    downloaderVersion = '1.1.0'
     gsonRetroVersion = '2.3.0'
 
     //Architecture Components dependencies
     xArchLifecycleVersion = '2.0.0'
-    xRoomVersion = '2.1.0'
 
     junitVersion = '4.12'
     runnerVersion = '1.1.0'
