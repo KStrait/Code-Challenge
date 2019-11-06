@@ -39,6 +39,11 @@ public class MainActivity extends DaggerAppCompatActivity implements MainViewMod
 
         binding.setViewModel(viewModel);
 
+        getSupportFragmentManager().addOnBackStackChangedListener(() -> {
+            if (!clearingBackStack)
+                viewModel.setMainView(detectView());
+        });
+
         viewModel.getMainView().observe(this, mainView -> {
             Log.d(TAG, "mainView observed: " + mainView);
             Log.d(TAG, "mainView detected: " + detectView());
@@ -49,13 +54,26 @@ public class MainActivity extends DaggerAppCompatActivity implements MainViewMod
             if (mv != detectedView) {
                 switch (mv) {
                     case MainViewModel.VIEW_LOGIN:
-                        showMainContent(new LoginFragment());
+                        showLoginFragment(new LoginFragment());
                         break;
                     case MainViewModel.VIEW_REPO_LIST:
                         showMainContent(new ReposFragment());
                         break;
                     case MainViewModel.VIEW_WEB:
                         showMainContent(RepoWebViewFragment.newInstance(viewModel.getUrl()));
+                        break;
+                }
+            }
+        });
+
+        viewModel.getMainAction().observe(this, mainAction -> {
+            Log.d(TAG, "mainAction observed: " + mainAction);
+            if (mainAction != null) {
+                @MainViewModel.MainAction int ma = mainAction;
+                switch (ma) {
+                    case MainViewModel.ACTION_GO_BACK:
+                        if (getSupportFragmentManager().getBackStackEntryCount() > 0)
+                            getSupportFragmentManager().popBackStackImmediate();
                         break;
                 }
             }
@@ -72,13 +90,24 @@ public class MainActivity extends DaggerAppCompatActivity implements MainViewMod
             }
     }
 
-    private void showMainContent(Fragment fragment) {
-        getSupportFragmentManager().executePendingTransactions();
+    // Leaving intial fragment off the stack, for nav purpose
+    private void showLoginFragment(Fragment fragment) {
+            getSupportFragmentManager().executePendingTransactions();
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.content_main, fragment)
-                    .addToBackStack(null)
                     .setPrimaryNavigationFragment(fragment)
                     .commit();
+
+    }
+
+    private void showMainContent(Fragment fragment) {
+        getSupportFragmentManager().executePendingTransactions();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.content_main, fragment)
+                    .addToBackStack(null)
+                .setPrimaryNavigationFragment(fragment)
+                .commit();
+
     }
 
     @MainViewModel.MainView

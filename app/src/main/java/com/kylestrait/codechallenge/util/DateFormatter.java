@@ -12,16 +12,11 @@ import javax.inject.Singleton;
 
 // Util to format a date from each repo and make it look more readable
 
-@Singleton
 public class DateFormatter {
 
     private static final SimpleDateFormat INPUT_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US);
-    private static final SimpleDateFormat OUTPUT_FORMAT = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss aaa z", Locale.US);
+    private static final SimpleDateFormat OUTPUT_FORMAT = new SimpleDateFormat("MM/dd/yyyy h:mm:ss aaa z", Locale.US);
 
-    @Inject
-    DateFormatter() {
-
-    }
 
     public String getFormattedDate(String date) {
         String output = "";

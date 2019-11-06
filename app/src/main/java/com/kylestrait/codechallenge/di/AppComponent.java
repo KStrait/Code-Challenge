@@ -13,7 +13,6 @@ import dagger.android.support.AndroidSupportInjectionModule;
         ActivityBuilderModule.class})
 public interface AppComponent extends AndroidInjector<MainApplication> {
 
-
     @Component.Builder
     abstract class Builder extends AndroidInjector.Builder<MainApplication> {
         public abstract AppComponent build();

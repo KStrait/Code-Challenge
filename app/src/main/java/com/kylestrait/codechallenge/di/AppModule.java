@@ -3,13 +3,12 @@ package com.kylestrait.codechallenge.di;
 import android.content.Context;
 
 import com.google.gson.Gson;
-import com.jakewharton.picasso.OkHttp3Downloader;
 import com.kylestrait.codechallenge.MainApplication;
 import com.kylestrait.codechallenge.network.WebService;
+import com.kylestrait.codechallenge.util.DateFormatter;
 import com.kylestrait.codechallenge.util.LoginValidator;
 import com.kylestrait.codechallenge.util.SharedPreferencesManager;
 import com.squareup.moshi.Moshi;
-import com.squareup.picasso.Picasso;
 
 import java.net.CookieHandler;
 import java.util.concurrent.Executor;
@@ -22,7 +21,6 @@ import javax.inject.Singleton;
 import androidx.lifecycle.MutableLiveData;
 import dagger.Module;
 import dagger.Provides;
-import okhttp3.Cache;
 import okhttp3.JavaNetCookieJar;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -56,14 +54,9 @@ class AppModule {
     }
 
     @Provides @Singleton
-    Cache getOkHttpCache(Context context) {
-        return OkHttp3Downloader.createDefaultCache(context);
-    }
-
-    @Provides @Singleton
-    OkHttpClient getOkHttpClient(Cache cache) {
+    OkHttpClient getOkHttpClient() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
-                .cache(cache)
+//                .cache(cache)
                 .cookieJar(new JavaNetCookieJar(CookieHandler.getDefault()))
                 .retryOnConnectionFailure(true)
                 .readTimeout(60, TimeUnit.SECONDS)
@@ -74,13 +67,6 @@ class AppModule {
 //                 semicolon on own line to make commenting above in/out easier
                 ;
         return builder.build();
-    }
-
-    @Provides @Singleton
-    Picasso providePicasso(Context context, OkHttpClient okHttpClient) {
-        return new Picasso.Builder(context)
-                .downloader(new OkHttp3Downloader(okHttpClient))
-                .build();
     }
 
     @Provides @Singleton
@@ -96,6 +82,11 @@ class AppModule {
     @Provides @Singleton
     LoginValidator providesLoginValidator() {
         return new LoginValidator();
+    }
+
+    @Provides @Singleton
+    DateFormatter providesDateFormatter() {
+        return new DateFormatter();
     }
 
     @Singleton @Provides
