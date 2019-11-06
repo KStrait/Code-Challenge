@@ -33,7 +33,7 @@ public class ReposViewModel extends BaseViewModel<ReposViewModel> {
     // Handles item click from repo list
     public void onItemClick(Repo repo) {
         if (repo != null) {
-            mainViewModel.showRepoWebView(repo.getHtmlUrl());
+            mainViewModel.showRepoWebView(repo.getName(), repo.getHtmlUrl());
         }
     }
 

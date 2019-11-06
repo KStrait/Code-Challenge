@@ -60,7 +60,7 @@ public class MainActivity extends DaggerAppCompatActivity implements MainViewMod
                         showMainContent(new ReposFragment());
                         break;
                     case MainViewModel.VIEW_WEB:
-                        showMainContent(RepoWebViewFragment.newInstance(viewModel.getUrl()));
+                        showMainContent(RepoWebViewFragment.newInstance(viewModel.getName(), viewModel.getUrl()));
                         break;
                 }
             }

@@ -25,7 +25,7 @@ public class MainViewModel extends ViewModel {
     private final MutableLiveData<Integer> mainView;
     private final MutableLiveData<Integer> mainAction;
 
-    public String url;
+    public String name, url;
 
     @Inject
     MainViewModel() {
@@ -66,11 +66,16 @@ public class MainViewModel extends ViewModel {
         return url;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void goBack() {
         mainAction.setValue(ACTION_GO_BACK);
     }
 
-    public void showRepoWebView(String url) {
+    public void showRepoWebView(String name, String url) {
+        this.name = name;
         this.url = url;
         setMainView(VIEW_WEB);
     }

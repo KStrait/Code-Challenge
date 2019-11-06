@@ -15,15 +15,16 @@ import androidx.annotation.Nullable;
 public class RepoWebViewFragment extends BaseFragment<ReposViewModel> {
 
     private FragmentRepoWebviewBinding binding;
-    private String url;
+    private String name, url;
 
     public RepoWebViewFragment() {
         super(ReposViewModel.class);
     }
 
-    public static RepoWebViewFragment newInstance(String url) {
+    public static RepoWebViewFragment newInstance(String name, String url) {
         RepoWebViewFragment frag = new RepoWebViewFragment();
         Bundle args = new Bundle();
+        args.putString("name", name);
         args.putString("url", url);
         frag.setArguments(args);
         return frag;
@@ -36,7 +37,9 @@ public class RepoWebViewFragment extends BaseFragment<ReposViewModel> {
         binding.setLifecycleOwner(this);
 
         if (getArguments() != null) {
+            name = getArguments().getString("name");
             url = getArguments().getString("url");
+            binding.setName(name);
             binding.webview.setWebViewClient(new WebViewClient());
             binding.webview.loadUrl(url);
         }
